@@ -27,7 +27,7 @@ jobs:
       
       - id: sets-a-secret
         run: |
-          the_secret= $(curl --request POST \
+          $(curl --request POST \
                         --url https://api.forio.com/v2/oauth/token \
                         --header 'authorization: Basic ${{ secrets.PROJECTTOKEN}}' \
                         --header 'cache-control: no-cache' \
