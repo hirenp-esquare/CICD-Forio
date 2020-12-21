@@ -32,12 +32,13 @@ jobs:
                         --header 'authorization: Basic ${{ secrets.PROJECTTOKEN }}' \
                         --header 'cache-control: no-cache' \
                         --header 'content-type: application/x-www-form-urlencoded' \
-                        --data =)| jq .access_token 
+                        --data =)
+          #echo "::add-mask::$the_secret"
           echo "::set-output name=secret-number::$the_secret"
      
       - name: use output
         run: |
-         echo $json_var 
+         $json_var | jq '.access_token'
         env:
           json_var: ${{ steps.sets-a-secret.outputs.secret-number}}
       
