@@ -29,16 +29,16 @@ jobs:
         run: |
           the_secret= $(curl --request POST \
                         --url https://api.forio.com/v2/oauth/token \
-                        --header 'authorization: Basic ${{ secrets.PROJECTTOKEN }}' \
+                        --header 'authorization: Basic ${{ secrets.PROJECTTOKEN}}' \
                         --header 'cache-control: no-cache' \
                         --header 'content-type: application/x-www-form-urlencoded' \
                         --data =)
-          #echo "::add-mask::$the_secret"
+          echo "::add-mask::$the_secret"
           echo "::set-output name=secret-number::$the_secret"
      
       - name: use output
         run: |
-         $json_var | jq '.access_token'
+         echo $json_var | jq '.access_token'
         env:
           json_var: ${{ steps.sets-a-secret.outputs.secret-number}}
       
