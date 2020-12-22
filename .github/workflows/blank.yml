@@ -33,7 +33,6 @@ jobs:
                         --header 'cache-control: no-cache' \
                         --header 'content-type: application/x-www-form-urlencoded' \
                         --data =)
-          echo "::add-mask::$ip"
           echo "::set-output name=secret-number::$ip"
      
       - name: use output
