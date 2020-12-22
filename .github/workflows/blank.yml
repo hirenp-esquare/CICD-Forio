@@ -32,7 +32,7 @@ jobs:
         id: extract_branch
         
       - name: get Token
-        if: ${{ steps.extract_branch.outputs.branch == 'Dev'}}
+        if: ${{ steps.extract_branch.outputs.branch == 'main'}}
         id: setAToken
         run: |
           responseToken=$(curl --request POST \
@@ -45,7 +45,7 @@ jobs:
           echo "::set-output name=AToken::$responseToken}}"
       
       - name: Pull to Epicenter
-        if: ${{ steps.extract_branch.outputs.branch == 'Dev'}}
+        if: ${{ steps.extract_branch.outputs.branch == 'main'}}
         run: |
           curl --request POST \
           --url https://api.forio.com/api/v3/va/va-psd-dev/git/pull \
