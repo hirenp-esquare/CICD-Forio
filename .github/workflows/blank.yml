@@ -31,6 +31,16 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
         
+      - name: Set project name
+        id: setProjectName
+        run: |
+          if: ${{ steps.extract_branch.outputs.branch == 'main'}}
+            echo "::set-output name=ProjectName::va-psd-Simtemp}}"
+          if: ${{ steps.extract_branch.outputs.branch == 'Test'}}
+            echo "::set-output name=ProjectName::va-psd-Testtemp}}"
+          if: ${{ steps.extract_branch.outputs.branch == 'Dev'}}
+            echo "::set-output name=ProjectName::va-psd-dev}}"
+        
       - name: get Token
         if: ${{ steps.extract_branch.outputs.branch == 'main'}}
         id: setAToken
@@ -45,10 +55,9 @@ jobs:
           echo "::set-output name=AToken::$responseToken}}"
       
       - name: Pull to Epicenter
-        if: ${{ steps.extract_branch.outputs.branch == 'main'}}
         run: |
           curl --request POST \
-          --url https://api.forio.com/api/v3/va/va-psd-dev/git/pull \
+          --url https://api.forio.com/api/v3/va/${{steps.setProjectName.outputs.ProjectName}}/git/pull \
           --header 'authorization: Bearer ${{ fromJson(steps.setAToken.outputs.AToken).access_token}} ' \
           --header 'cache-control: no-cache' \
           --header 'content-type: application/json' \
