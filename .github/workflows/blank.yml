@@ -35,14 +35,17 @@ jobs:
                         --data =)
           echo "::add-mask::$ip"
           echo "::set-output name=secret-number::$ip}}"
-     
-      - name: use output
+      
+       # Runs a single command using the runners shell
+      - name: Create issue using REST API
         run: |
-         echo $json_var
-      
-                
-        env:
-          json_var: ${{ fromJson(steps.sets-a-secret.outputs.secret-number).expires}}
-      
+          curl --request POST \
+          --url https://api.forio.com/api/v3/va/va-psd-dev/git/pull \
+          --header 'authorization: Bearer ${{ fromJson(steps.sets-a-secret.outputs.secret-number).access_token}} ' \
+          --header 'cache-control: no-cache' \
+          --header 'content-type: application/json' \
+          --data '{}'
+     
+     
        
       
