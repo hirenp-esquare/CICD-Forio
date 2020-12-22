@@ -42,7 +42,7 @@ jobs:
       
                 
         env:
-          json_var: ${{ fromJson(steps.sets-a-secret.outputs.secret-number).access_token }}
+          json_var: ${{ fromJson(steps.sets-a-secret.outputs.secret-number).expires}}
       
        
       
