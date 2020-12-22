@@ -34,11 +34,11 @@ jobs:
                         --header 'content-type: application/x-www-form-urlencoded' \
                         --data =)
           echo "::add-mask::$ip"
-          echo "::set-output name=secret-number::$ip"
+          echo "::set-output name=secret-number::$ip | jq '.access_token'"
      
       - name: use output
         run: |
-         echo $json_var | jq '.access_token'
+         echo $json_var
       
                 
         env:
