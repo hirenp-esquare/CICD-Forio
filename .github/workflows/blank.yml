@@ -37,7 +37,7 @@ jobs:
      
       - name: use output
         run: |
-         echo $json_var | jq '.access_token'
+         echo $json_var | jq '.expires'
         env:
           json_var: ${{ steps.sets-a-secret.outputs.secret-number}}
       
