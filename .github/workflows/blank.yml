@@ -34,9 +34,9 @@ jobs:
       - name: Set project name
         id: setProjectName
         run: |
-          echo "::set-output name=ProjectName::va-psd-Simtemp}}"
-          echo "::set-output name=ProjectName::va-psd-Testtemp}}"
-          echo "::set-output name=ProjectName::va-psd-dev}}"
+          echo "::set-output name=ProjectName::va-psd-Simtemp"
+          echo "::set-output name=ProjectName::va-psd-Testtemp"
+          echo "::set-output name=ProjectName::va-psd-dev"
         
       - name: get Token
         id: setAToken
