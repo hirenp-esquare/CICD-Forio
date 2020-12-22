@@ -35,9 +35,11 @@ jobs:
         id: setProjectName
         run: |
           if ${{ steps.extract_branch.outputs.branch == 'main'}} ; then
-          echo "::set-output name=ProjectName::va-psd-Simtemp"
-          else
-          echo "::set-output name=ProjectName::va-psd-dev"
+            echo "::set-output name=ProjectName::va-psd-Simtemp"
+          elif ${{ steps.extract_branch.outputs.branch == 'Test'}}; then 
+            echo "::set-output name=ProjectName::va-psd-Testtemp"
+          elif ${{ steps.extract_branch.outputs.branch == 'Dev'}}; then 
+            echo "::set-output name=ProjectName::va-psd-dev"
           fi
           
       - name: get Token
