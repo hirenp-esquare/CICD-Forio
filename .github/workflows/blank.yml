@@ -25,23 +25,22 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - id: sets-a-secret
+      - id: setAToken
         run: |
-          ip=$(curl --request POST \
+          responseToken=$(curl --request POST \
                         --url https://api.forio.com/v2/oauth/token \
                         --header 'authorization: Basic ${{ secrets.PROJECTTOKEN}}' \
                         --header 'cache-control: no-cache' \
                         --header 'content-type: application/x-www-form-urlencoded' \
                         --data =)
-          echo "::add-mask::$ip"
-          echo "::set-output name=secret-number::$ip}}"
+          echo "::add-mask::$responseToken"
+          echo "::set-output name=AToken::$responseToken}}"
       
-       # Runs a single command using the runners shell
-      - name: Create issue using REST API
+      - name: Pull to Epicenter
         run: |
           curl --request POST \
           --url https://api.forio.com/api/v3/va/va-psd-dev/git/pull \
-          --header 'authorization: Bearer ${{ fromJson(steps.sets-a-secret.outputs.secret-number).access_token}} ' \
+          --header 'authorization: Bearer ${{ fromJson(steps.setAToken.outputs.AToken).access_token}} ' \
           --header 'cache-control: no-cache' \
           --header 'content-type: application/json' \
           --data '{}'
