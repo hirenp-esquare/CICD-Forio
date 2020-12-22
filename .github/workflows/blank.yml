@@ -34,12 +34,11 @@ jobs:
       - name: Set project name
         id: setProjectName
         run: |
-          echo "::set-output name=ProjectName::'va-psd-Simtemp'}}"
-          echo "::set-output name=ProjectName::'va-psd-Testtemp'}}"
-          echo "::set-output name=ProjectName::'va-psd-dev'}}"
+          echo "::set-output name=ProjectName::va-psd-Simtemp}}"
+          echo "::set-output name=ProjectName::va-psd-Testtemp}}"
+          echo "::set-output name=ProjectName::va-psd-dev}}"
         
       - name: get Token
-        if: ${{ steps.extract_branch.outputs.branch == 'main'}}
         id: setAToken
         run: |
           responseToken=$(curl --request POST \
