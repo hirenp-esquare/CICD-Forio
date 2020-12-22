@@ -45,10 +45,11 @@ jobs:
         run: |
           curl --request POST \
           --url https://api.forio.com/api/v3/va/va-psd-dev/git/pull \
-          --header 'authorization: Bearer ${{ json_var | jq '.access_token' }}' \
+          --header 'authorization: Bearer $json_var | jq ".access_token" ' \
           --header 'cache-control: no-cache' \
           --header 'content-type: application/json' \
           --data '{}'
+           
         env:
           json_var: ${{ steps.sets-a-secret.outputs.secret-number}}
       
