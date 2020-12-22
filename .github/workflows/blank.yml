@@ -24,8 +24,16 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
-      - id: setAToken
+        
+    
+      - name: Extract branch name
+        #shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+        
+      - name: get Token
+        if: ${{ steps.extract_branch.outputs.branch == Dev}}
+        id: setAToken
         run: |
           responseToken=$(curl --request POST \
                         --url https://api.forio.com/v2/oauth/token \
@@ -37,6 +45,7 @@ jobs:
           echo "::set-output name=AToken::$responseToken}}"
       
       - name: Pull to Epicenter
+        if: ${{ steps.extract_branch.outputs.branch == Dev}}
         run: |
           curl --request POST \
           --url https://api.forio.com/api/v3/va/va-psd-dev/git/pull \
