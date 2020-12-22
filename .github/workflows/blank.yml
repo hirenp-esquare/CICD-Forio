@@ -34,7 +34,7 @@ jobs:
                         --header 'content-type: application/x-www-form-urlencoded' \
                         --data =)
           echo "::add-mask::$ip"
-          echo "::set-output name=secret-number::${{fromJson($ip).access_token}}"
+          echo "::set-output name=secret-number::$ip}}"
      
       - name: use output
         run: |
@@ -42,7 +42,7 @@ jobs:
       
                 
         env:
-          json_var: ${{ steps.sets-a-secret.outputs.secret-number}}
+          json_var: ${{ fromJson(steps.sets-a-secret.outputs.secret-number).access_token }}
       
        
       
